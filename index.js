@@ -1,12 +1,20 @@
 import React from "react";
-import ReactDOM from "react-dom/client"; // It renders React components into the actual web page’s DOM in the browser.
+import ReactDOM from "react-dom/client";
+import "./index.css";
 
-const element = React.createElement('div', {id : 'parent'}, [
-  React.createElement('h1', { key: '1', id : 'child1'}, "Hello Sravan")
-]);
+import HeaderComponent from "./src/components/HeaderComponent";
+import MainContent from "./src/components/MainContent";
+// import FooterComponent from "./FooterComponent";
 
-console.log(element)
+const AppLayout = () => {
+  return (
+    <div className="app-layout">
+      <HeaderComponent />
+      <MainContent />
+      {/* <FooterComponent /> */}
+    </div>
+  )
+}
 
-const root = ReactDOM.createRoot(document.getElementById("root")); // It creates a root for the React application to render into.
-root.render(element)
-console.log("React element rendered successfully", root);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<AppLayout />);
