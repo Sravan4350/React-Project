@@ -1,4 +1,12 @@
+import React, { useState } from "react";
 const HeaderComponent = () => {
+
+  const [login, setLogin] = useState(false)
+  const handleLogin = () => {
+    setLogin(!login)
+  }
+  const btnName = login ? "Logout" : "Login";
+  
   return (
     <div className="header-component">
       <div className="logo-container">
@@ -6,10 +14,11 @@ const HeaderComponent = () => {
       </div>
       <div className="nav-items">
         <ul className="nav-list">
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
-          <li>Services</li>
+          <li className="nav-item">Home</li>
+          <li className="nav-item">About</li>
+          <li className="nav-item">Contact</li>
+          <li className="nav-item">Services</li>
+          <button className="login-button" onClick={handleLogin}>{btnName}</button>
         </ul>
       </div>
     </div>

@@ -1,24 +1,71 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import RestroContainer from "./RestroContainer";
-import restroData from "./restroData";
+import Shimmer from "./ShimmerUI";
 
 const MainContent = () => {
-  const restroList = restroData?.data?.cards[2].card?.card?.gridElements?.infoWithStyle?.restaurants || [];
-  const [filteredRestroList, setFilteredRestroList] = React.useState(restroList);
-  
+  const [allRestaurants, setAllRestaurants] = useState([]);
+  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []); 
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const data = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.2438457&lng=80.1706266&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      );
+      const json = await data.json();
+      const restaurants = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+ 
+      setAllRestaurants(restaurants);
+      setListOfRestaurants(restaurants);
+      
+    } catch (error) {
+      console.error("Error fetching restaurants:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const onClickFilter = () => {
-    const data = restroList.filter(restro => (
-      restro?.info?.avgRating >= 4.5
+    const data = allRestaurants.filter(
+      (restro) => restro?.info?.avgRating > 4
+    );
+    setListOfRestaurants(data);
+  };
+
+  const onChangeInputValue = (event) => {
+    setSearchText(event.target.value);
+  }
+
+  const onClickSearch = () => {
+    const data = allRestaurants.filter((restro) => (
+      restro?.info?.name?.toLowerCase()?.includes(searchText.toLowerCase())
     ))
-    setFilteredRestroList(data);
+    setListOfRestaurants(data);
+  }
+
+  if (loading) {
+    return <Shimmer />;
   }
 
   return (
     <div className="body-component">
-      <button className="filter-button">Filter</button>
       <div className="search-container">
-        <input type="text" className="search-input" placeholder="Search..." />
-        <button className="search-button">Search</button>
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search..."
+          value={searchText}
+          onChange={onChangeInputValue}
+        />
+        <button onClick={onClickSearch} className="search-button">
+          Search
+        </button>
         <button onClick={onClickFilter} className="filter-button">
           <img
             className="filter-icon" 
@@ -28,8 +75,9 @@ const MainContent = () => {
         </button>
         <p>Filter Top Rated</p>
       </div>
-      <RestroContainer restroList={filteredRestroList} />
+      <RestroContainer restroList={listOfRestaurants} />
     </div>
   );
-}
-export default MainContent
+};
+
+export default MainContent;
