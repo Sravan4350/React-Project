@@ -9,8 +9,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #ffff;
-  padding: 10px;
+  background-color: #ffff; 
+  padding: 12px;
+  border: #333 0.8px solid;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .nav-list {
   list-style: none;
@@ -19,6 +21,7 @@
 }
 .nav-items {
   font-weight: bold; 
+  text-align: none;
   font-family: 'Arial', sans-serif;
 }
 .body-component {
