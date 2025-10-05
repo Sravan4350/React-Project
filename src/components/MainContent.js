@@ -1,40 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, lazy} from "react";
+// Axios is a library used to make HTTP requests from the browser or Node.js. It provides a simple and easy-to-use API for sending asynchronous requests to REST endpoints and handling responses. Axios supports features like request and response interceptors, automatic JSON data transformation, request cancellation, and more.
 import RestroContainer from "./RestroContainer";
 import Shimmer from "./ShimmerUI";
+import { useRestaurents } from "../utils/useRestaurents";
+import userStatusOnline from "../utils/useStatusOnline";
 
 const MainContent = () => {
-  const [allRestaurants, setAllRestaurants] = useState([]);
-  const [listOfRestaurants, setListOfRestaurants] = useState([]);
+
+  const {allRestaurants, listOfRestaurants, setListOfRestaurants, loading} = useRestaurents()
   const [searchText, setSearchText] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    fetchData();
-  }, []); 
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.2438457&lng=80.1706266&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-      );
-      const json = await data.json();
-      const restaurants = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
- 
-      setAllRestaurants(restaurants);
-      setListOfRestaurants(restaurants);
-      
-    } catch (error) {
-      console.error("Error fetching restaurants:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const onClickFilter = () => {
-    const data = allRestaurants.filter(
-      (restro) => restro?.info?.avgRating > 4
-    );
+    const data = allRestaurants.filter((restro) => restro?.info?.avgRating > 4);
     setListOfRestaurants(data);
   };
 
@@ -47,6 +24,27 @@ const MainContent = () => {
       restro?.info?.name?.toLowerCase()?.includes(searchText.toLowerCase())
     ))
     setListOfRestaurants(data);
+  }
+
+  const onlineStatus = userStatusOnline();
+
+  // If offline: do not display the main content. Show an offline message with a retry action.
+  if (onlineStatus === false) {
+    return (
+      <div style={{padding:32, textAlign:"center"}}>
+        <h2>You're offline</h2>
+        <p>Looks like you are disconnected. The app cannot load content without an internet connection.</p>
+        <div style={{marginTop:16}}>
+          <button
+            onClick={() => window.location.reload()}
+            style={{padding:"8px 16px", cursor:"pointer"}}
+            aria-label="Retry connection"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
   }
 
   if (loading) {
@@ -71,6 +69,8 @@ const MainContent = () => {
             className="filter-icon" 
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNGk8qlROXITq5otWgtvhvgm5Y3mfHCo2kaQ&s"
             alt="Search Icon"
+            fetchPriority="high"
+            loading="eager"
           />
         </button>
         <p>Filter Top Rated</p>

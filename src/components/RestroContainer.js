@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import RestroCard from "./RestroCard";
 
 const RestroContainer = ({restroList}) => {
@@ -5,7 +6,9 @@ const RestroContainer = ({restroList}) => {
   return (
     <div className="restro-container">
       {restroList.map((restro, index) => (
-        <RestroCard key={index} restro={restro.info} index={index} />
+        <Link to={"/restaurant/" + restro.info.id} key={restro.info.id}>
+          <RestroCard key={index} restro={restro.info} index={index} />
+        </Link>
       ))}
     </div>
   );
