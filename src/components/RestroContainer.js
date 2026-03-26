@@ -1,15 +1,21 @@
 import { Link } from "react-router-dom";
-import RestroCard from "./RestroCard";
+import RestroCard, { WithPromotedTag } from "./RestroCard";
+
+const RestroCardPromoted = WithPromotedTag(RestroCard); 
+// HOF returned a new enhanced component, and we stored it in a variable, and we send the props to that, and received where it called
 
 const RestroContainer = ({ restroList }) => {
   return (
-    <div className="mx-auto px-1 flex ">
-      
+    <div className="mx-auto px-1 flex">
+
       {/* Grid Layout */}
-      <div className="flex  flex-wrap gap-8 justify-center">
+      <div className="flex flex-wrap gap-8 justify-center">
         {restroList.map((restro, index) => (
           <Link to={"/restaurant/" + restro.info.id} key={restro.info.id} className="block">
-            <RestroCard restro={restro.info} index={index} />
+            {restro?.info?.promoted
+              ? <RestroCardPromoted restro={restro.info} index={index} />
+              : <RestroCard restro={restro.info} index={index} />
+            }
           </Link>
         ))}
       </div>
