@@ -30,4 +30,18 @@ const RestroCard = ({ restro }) => {
     </div>
   );
 };
+
+export const WithPromotedTag = (RestroCard) => {
+  return (props) => {
+    return (
+      <div className="relative">
+        <label className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-1 rounded z-10">
+          Promoted
+        </label>
+        <RestroCard {...props} />
+      </div>
+    );
+  };
+};
+
 export default RestroCard;

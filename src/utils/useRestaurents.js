@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { ALL_RESTRO_URL } from "./constants";
+import restroData from "../components/restroData";
 export const useRestaurents = () => {
 
   // We are maintaining two states here:
@@ -17,10 +18,10 @@ export const useRestaurents = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.2438457&lng=80.1706266&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+      const response = await axios.get(ALL_RESTRO_URL);
       const data = response.data;
       const restaurants = data?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
- 
+      // const restaurants = restroData.......Raw Data
       setAllRestaurants(restaurants);
       setListOfRestaurants(restaurants);
       
