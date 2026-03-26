@@ -1,15 +1,33 @@
-const RestroCard = ({ restro, index }) => {
+const RestroCard = ({ restro }) => {
   return (
-    <div className="restro-card" key={index}>
+    <div className="w-80 h-80 bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+      
+      {/* Image */}
       <img
-        className="restro-image"
-         src={`https://media-assets.swiggy.com/swiggy/image/upload/${restro.cloudinaryImageId}`}
+        className="w-full h-50 object-cover"
+        src={`https://media-assets.swiggy.com/swiggy/image/upload/${restro.cloudinaryImageId}`}
         alt={restro.name}
       />
-      <h2 className="restro-name">{restro.name}</h2>
-      <p className="restro-locality">{restro.locality.slice(0,15)}</p>
-      <p className="restro-rating">{restro.avgRating} ⭐</p>
+
+      {/* Content */}
+      <div className="p-4">
+        
+        <h2 className="text-lg font-semibold text-gray-800 truncate">
+          {restro.name}
+        </h2>
+
+        <p className="text-sm text-gray-500 mt-1 truncate">
+          📍 {restro.locality}
+        </p>
+
+        <div className="flex justify-between items-center mt-2">
+          <span className="text-sm text-yellow-600 font-medium">
+            ⭐ {restro.avgRating}
+          </span>
+        </div>
+
+      </div>
     </div>
   );
-}
+};
 export default RestroCard;
