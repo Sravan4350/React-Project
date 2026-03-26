@@ -3,6 +3,9 @@ import axios from "axios";
 
 export const useRestaurents = () => {
 
+  // We are maintaining two states here:
+  // 1. allRestaurants: This will hold the complete list of restaurants fetched from the API. It remains unchanged and serves as our source of truth.
+  // 2. listOfRestaurants: This is the state that we will use to display the restaurants on the UI. It can be filtered based on user actions (like search or filter by rating) without affecting the original data in allRestaurants.
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [loading, setLoading] = useState(false);

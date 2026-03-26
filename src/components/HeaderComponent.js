@@ -1,48 +1,86 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import useStatusOnline from  "../utils/useStatusOnline";
-// Link is used to navigate between different routes in a React application without reloading the page.
-// It is similar to an anchor (<a>) tag in HTML but is specifically designed for React Router.
-// It helps in creating a single-page application (SPA) experience.
-// If we anchor tag is used, it reloads the entire page, whereas Link updates the URL and renders the new component without a full page reload.
-// It prevents the unnecessary loading time and provides a smoother user experience.
+import useStatusOnline from "../utils/useStatusOnline";
 
 const HeaderComponent = () => {
-
-  const [login, setLogin] = useState(false)
+  const [login, setLogin] = useState(false);
   const btnName = login ? "Logout" : "Login";
 
   const onlineStatus = useStatusOnline();
-  
+
   return (
-    <div className="header-component">
-      <div className="logo-container">
-        <img className="logo-image" src="https://res.cloudinary.com/drt0bwjjb/image/upload/v1754930649/Food_Logo_newrvn.png" alt="Logo" />
+    <header className="bg-white shadow-md sticky top-0 z-50">
+      <div className="flex items-center justify-between max-w-7xl mx-auto px-6 py-4">
+        
+        {/* Logo */}
+        <div className="flex items-center gap-3">
+          <img
+            className="w-12 h-12 object-cover rounded-full"
+            src="https://res.cloudinary.com/drt0bwjjb/image/upload/v1754930649/Food_Logo_newrvn.png"
+            alt="Logo"
+          />
+          <h1 className="text-xl font-bold text-gray-800">Foodie</h1>
+        </div>
+
+        {/* Navigation */}
+        <nav>
+          <ul className="flex items-center gap-6 text-gray-700 font-medium">
+            
+            {/* Online Status */}
+            <li className="flex items-center gap-1">
+              <span className="text-lg">
+                {onlineStatus ? "🟢" : "🔴"}
+              </span>
+              <span className="text-sm hidden md:inline">
+                {onlineStatus ? "Online" : "Offline"}
+              </span>
+            </li>
+
+            <li>
+              <Link to="/" className="hover:text-orange-500 transition duration-200">
+                Home
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/about" className="hover:text-orange-500 transition duration-200">
+                About
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/contact" className="hover:text-orange-500 transition duration-200">
+                Contact
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/cart" className="hover:text-orange-500 transition duration-200">
+                Cart 🛒
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/grocery" className="hover:text-orange-500 transition duration-200">
+                Instamart
+              </Link>
+            </li>
+
+            {/* Login Button */}
+            <li>
+              <button
+                className="hover:text-orange-500 bg-orange-500 text-white px-4 py-1.5 rounded-lg hover:bg-orange-600 transition duration-200"
+                onClick={() => setLogin(!login)}
+              >
+                {btnName}
+              </button>
+            </li>
+
+          </ul>
+        </nav>
       </div>
-      <div className="nav-items">
-        <ul className="nav-list">
-          <li className="nav-item">
-            <span>{onlineStatus ? "🟢" : "🔴"}</span>
-          </li>
-          <li className="nav-item">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/about">About </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/contact">Contact </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/About">Cart</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/grocery">Instamart</Link>
-          </li>
-          <button className="login-button" onClick={() => setLogin(!login)}>{btnName}</button>
-        </ul>
-      </div>
-    </div>
-  )
-}
-export default HeaderComponent
+    </header>
+  );
+};
+
+export default HeaderComponent;
