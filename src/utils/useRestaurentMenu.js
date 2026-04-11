@@ -7,12 +7,13 @@ const useRestaurentMenu = (resId) => {
   const [resInfo, setResInfo] = useState(null);
   useEffect(() => {
     fetchMenu()
-  }, []);
+  }, [resId]);
 
   const fetchMenu = async () => {
     try {
       const response = await axios.get(MENU_URL + resId);
-      const data = await response.data.data;
+      const data = response.data.data;
+      
       setResInfo(data);
     } catch (error) {
       console.error("Error fetching restaurant menu:", error);

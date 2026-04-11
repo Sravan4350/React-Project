@@ -21,7 +21,6 @@ export const useRestaurents = () => {
       const response = await axios.get(ALL_RESTRO_URL);
       const data = response.data;
       const restaurants = data?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
-      // const restaurants = restroData.......Raw Data
       setAllRestaurants(restaurants);
       setListOfRestaurants(restaurants);
       

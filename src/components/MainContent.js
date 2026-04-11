@@ -61,39 +61,43 @@ const MainContent = () => {
     <div className="bg-gray-50 min-h-screen px-4 md:px-8 py-6">
       
       {/* Search + Filter */}
-      <div className="flex flex-col md:flex-row items-center gap-4 mb-6">
-        
-        {/* Search Box */}
-        <div className="flex gap-2 md:w-1/2 shadow-sm">
-          <input
-            type="text"
-            className="gap-2 w-full border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
-            placeholder="Search restaurants..."
-            value={searchText}
-            onChange={onChangeInputValue}
-          />
-          <button
-            onClick={onClickSearch}
-            className="bg-orange-500 text-white px-6 rounded-r-lg hover:bg-orange-600 transition"
-          >
-            Search
-          </button>
+      <div className="mb-6 space-y-4">
+        <div className="flex justify-center">
+          <div className="flex w-full max-w-md shadow-sm">
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400"
+              placeholder="Search restaurants..."
+              value={searchText}
+              onChange={onChangeInputValue}
+            />
+
+            <button
+              onClick={onClickSearch}
+              className="bg-orange-500 text-white px-6 rounded-r-lg hover:bg-orange-600 transition cursor-pointer"
+            >
+              Search
+            </button>
+
+          </div>
         </div>
 
-        {/* Filter Button */}
-        <button
-          onClick={onClickFilter}
-          className="flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100 transition"
-        >
-          <img
-            className="w-5 h-5"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNGk8qlROXITq5otWgtvhvgm5Y3mfHCo2kaQ&s"
-            alt="Filter"
-          />
-          <span className="text-gray-700 font-medium">
-            Top Rated
-          </span>
-        </button>
+        {/* Filter Button (separate row) */}
+        <div className="flex justify-center">
+          <button
+            onClick={onClickFilter}
+            className="flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-100 transition"
+          >
+            <img
+              className="w-5 h-5"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNGk8qlROXITq5otWgtvhvgm5Y3mfHCo2kaQ&s"
+              alt="Filter"
+            />
+            <span className="text-gray-700 font-medium">
+              Top Rated
+            </span>
+          </button>
+        </div>
 
       </div>
 
