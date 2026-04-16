@@ -1,0 +1,41 @@
+{
+  "name": "react-example",
+  "version": "1.0.0",
+  "description": "By Perumandla Sravankumar",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sravan4350/React-Project.git"
+  },
+  "keywords": [
+    "React",
+    "Project"
+  ],
+  "author": "Sravankumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sravan4350/React-Project/issues"
+  },
+  "homepage": "https://github.com/Sravan4350/React-Project#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.27",
+    "buffer": "^6.0.3",
+    "parcel": "^2.15.4",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/react-fontawesome": "^3.3.0",
+    "@tailwindcss/postcss": "^4.2.2",
+    "axios": "^1.11.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^6.30.1"
+  }
+}
